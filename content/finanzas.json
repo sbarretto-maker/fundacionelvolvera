@@ -1,0 +1,10 @@
+{"moneda":"USD","ejemplo":true,
+ "periodos":[
+  {"anio":"2026","ingresos":[{"concepto_es":"Donaciones individuales","concepto_en":"Individual donations","monto":18500},{"concepto_es":"Donaciones de iglesias","concepto_en":"Church donations","monto":6200},{"concepto_es":"Eventos","concepto_en":"Events","monto":1300}],
+   "gastos":[{"concepto_es":"Producción de contenido (videos, audio, impresos)","concepto_en":"Content production (video, audio, print)","monto":9400},{"concepto_es":"Actividades y eventos","concepto_en":"Activities and events","monto":5100},{"concepto_es":"Sitio web y tecnología","concepto_en":"Website and technology","monto":900},{"concepto_es":"Administración y auditoría","concepto_en":"Administration and audit","monto":2600}]}
+ ],
+ "documentos":[
+  {"anio":"2026","tipo":"auditado","titulo_es":"Estados financieros auditados 2026","titulo_en":"Audited financial statements 2026","archivo":""},
+  {"anio":"2026","tipo":"informe","titulo_es":"Informe trimestral, julio a septiembre","titulo_en":"Quarterly report, July to September","archivo":""},
+  {"anio":"2026","tipo":"legal","titulo_es":"Escritura de constitución y estatutos","titulo_en":"Articles of incorporation and bylaws","archivo":""}
+ ]}

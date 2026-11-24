@@ -1,0 +1,175 @@
+/*
+VOICE: reverente, cálido y claro; frases cortas, mucho aire.
+IDEA: el amanecer del logo: la luz dorada que sale detrás de la cruz sobre el mundo.
+PICTURE: el logo dentro de un halo de rayos dorados sobre un cielo azul profundo.
+COLOUR y TYPE: azul del logo, oro del logo, marfil; Cinzel (letra del logo) para títulos, Source Sans 3 para texto, Source Serif 4 para versículos.
+LAYOUT: bandas a todo lo ancho, contenido de 1180px, tarjetas en rejilla que se apilan en móvil.
+*/
+:root{
+  color-scheme:light dark;
+  --azul:#0b2340;--azul2:#132f55;--noche:#06152a;
+  --oro:#b97f2c;--oro2:#e9b965;--oroclaro:#f6dfae;
+  --bg:light-dark(#fbf7ee,#08182e);
+  --sup:light-dark(#ffffff,#0f2645);
+  --ink:light-dark(#14223a,#eef1f6);
+  --suave:light-dark(#4b5870,#b6c0d1);
+  --linea:light-dark(#e6dcc6,#233c60);
+  --acento:light-dark(#8f5d16,#f0c47a);
+  --titulo:light-dark(#0b2340,#f6e2b6);
+  --sombra:0 1px 2px rgb(11 35 64 / .08),0 8px 24px rgb(11 35 64 / .08);
+}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif;overflow-x:clip}
+img{max-width:100%;height:auto}
+a{color:var(--acento)}
+h1,h2,h3{font-family:Cinzel,Georgia,serif;color:var(--titulo);line-height:1.1;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(32px,5vw,52px)}h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:20px;line-height:1.25}
+p{margin:0 0 1em;max-width:68ch}
+.saltar{position:absolute;left:-999px;top:8px;background:var(--oro2);color:var(--azul);padding:10px 14px;z-index:50}
+.saltar:focus{left:8px}
+:focus-visible{outline:3px solid var(--oro2);outline-offset:2px}
+
+/* Cabecera */
+.cab{position:sticky;top:0;z-index:20;background:var(--noche);color:#fff;border-bottom:1px solid #c8923f55}
+.cab-in{max-width:1240px;margin:auto;display:flex;align-items:center;gap:12px;padding:8px max(4vw,14px)}
+.marca{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;margin-right:auto}
+.marca b{display:block;font-family:Cinzel,serif;font-size:20px;letter-spacing:.02em}
+.marca small{display:block;color:var(--oro2);font-size:13px;margin-top:-2px}
+.nav{display:flex;flex-wrap:wrap;gap:2px}
+.nav a{color:#e8ecf3;text-decoration:none;padding:10px 11px;border-radius:8px;font-size:16px;white-space:nowrap}
+.nav a:hover{background:#ffffff14}
+.nav a[aria-current=page]{color:var(--oro2);box-shadow:inset 0 -2px 0 var(--oro2);border-radius:0}
+.nav a.donar-link{background:var(--oro2);color:var(--azul);font-weight:700;border-radius:8px;box-shadow:none}
+.idioma,.menu-btn{min-height:44px;min-width:44px;border:1px solid #e9b96588;background:transparent;color:#fff;border-radius:8px;font:600 15px "Source Sans 3",sans-serif;cursor:pointer;padding:0 12px}
+.idioma:hover,.menu-btn:hover{background:#ffffff14}
+.menu-btn{display:none}
+@media(max-width:1060px){
+  .menu-btn{display:block}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--noche);flex-direction:column;padding:8px max(4vw,14px) 16px;border-bottom:1px solid #c8923f55}
+  .nav.abierto{display:flex}
+  .nav a{padding:12px}
+}
+
+/* Bandas */
+.band{padding:clamp(36px,6vw,80px) max(5vw,16px)}
+.in{max-width:1180px;margin:auto}
+.band.alt{background:light-dark(#f3ead6,#0b1f3a)}
+.band.oscura{background:var(--azul);color:#eef1f6}
+.band.oscura h2,.band.oscura h3{color:var(--oroclaro)}
+.intro{color:var(--suave);font-size:18px}
+.band.oscura .intro{color:#c9d3e3}
+
+/* Portada */
+.portada{position:relative;overflow:hidden;color:#fff;background:radial-gradient(120% 90% at 70% 40%,#2a4f7f 0%,#0b2340 45%,#06152a 100%)}
+.portada-in{max-width:1180px;margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(20px,4vw,56px);align-items:center;padding:clamp(36px,6vw,84px) max(5vw,16px)}
+.portada h1{color:#fff}
+.portada h1 em{font-style:normal;display:block;font-size:.5em;color:var(--oro2);margin-top:.4em}
+.portada p{color:#d5deec;font-size:19px}
+.halo{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.halo svg{position:absolute;inset:-6%;width:112%;height:112%}
+.halo .logo-circ{position:relative;width:86%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fffaf0 0%,#f7ecd4 62%,#e9d3a4 100%);display:grid;place-items:center;box-shadow:0 0 0 2px #e9b96599,0 30px 80px #000a}
+.halo .logo-circ img{width:92%}
+.rayos{transform-origin:50% 50%;animation:girar 120s linear infinite}
+@keyframes girar{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.rayos{animation:none}}
+.botones{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:10px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-size:17px;font-family:inherit}
+.btn.oro{background:var(--oro2);color:var(--azul)}
+.btn.oro:hover{background:#f3cb85}
+.btn.linea{border-color:#e9b965;color:#fff;background:transparent}
+.btn.azul{background:var(--azul);color:#fff}
+.btn[aria-disabled=true]{opacity:.55;cursor:not-allowed}
+@media(max-width:760px){.portada-in{grid-template-columns:minmax(0,1fr)}.halo{max-width:340px;margin:auto;order:-1}}
+
+/* Versículo */
+.verso{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-size:clamp(19px,2.2vw,24px);line-height:1.5;max-width:60ch}
+.verso cite{display:block;font-style:normal;font-family:"Source Sans 3",sans-serif;font-size:15px;color:var(--acento);margin-top:8px;font-weight:700}
+.band.oscura .verso cite{color:var(--oro2)}
+
+/* Rejillas y tarjetas */
+.rej{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:18px}
+.tar{background:var(--sup);border:1px solid var(--linea);border-radius:14px;padding:20px;box-shadow:var(--sombra);display:flex;flex-direction:column}
+.tar p{color:var(--suave);font-size:16px}
+.tar .mas{margin-top:auto;font-weight:700}
+.etq{display:inline-block;font-size:13px;font-weight:700;color:var(--acento);margin-bottom:6px}
+.fecha{font-size:14px;color:var(--suave);white-space:nowrap}
+.secciones a.tar{text-decoration:none;color:inherit;transition:transform .15s}
+.secciones a.tar:hover{transform:translateY(-2px);border-color:var(--oro)}
+.ico{width:40px;height:40px;color:var(--oro);margin-bottom:10px}
+.nota{font-size:14px;color:var(--suave);margin-top:14px}
+.aviso{background:light-dark(#fff4dc,#1b2f4f);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;font-size:15px;max-width:none}
+
+/* Filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.filtros button{min-height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--linea);background:var(--sup);color:var(--ink);font:600 15px "Source Sans 3",sans-serif;cursor:pointer}
+.filtros button[aria-pressed=true]{background:var(--azul);color:#fff;border-color:var(--azul)}
+
+/* Biblia */
+.versiones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media(max-width:700px){.versiones{grid-template-columns:minmax(0,1fr)}}
+.buscar{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.buscar label{display:flex;flex-direction:column;font-weight:600;font-size:15px;gap:4px;flex:1 1 220px}
+input,select{font:16px "Source Sans 3",sans-serif;min-height:48px;padding:0 12px;border-radius:10px;border:1px solid var(--linea);background:var(--sup);color:var(--ink)}
+.par{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:18px 0;border-top:1px solid var(--linea)}
+.par .verso{font-size:18px}
+@media(max-width:700px){.par{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* Pasos */
+.pasos{counter-reset:p;display:grid;gap:16px;padding:0;margin:0;list-style:none}
+.pasos li{counter-increment:p;display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:start;background:var(--sup);border:1px solid var(--linea);border-radius:14px;padding:18px}
+.pasos li::before{content:counter(p);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--azul);color:var(--oro2);font:700 22px Cinzel,serif}
+.pasos h3{margin-bottom:4px}
+.pasos .verso{font-size:17px}
+
+/* Finanzas */
+.cifras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:26px}
+.cifra{background:var(--sup);border:1px solid var(--linea);border-radius:14px;padding:18px}
+.cifra span{display:block;font-size:15px;color:var(--suave)}
+.cifra b{font:700 clamp(24px,3vw,34px) "Source Sans 3",sans-serif;color:var(--titulo);white-space:nowrap}
+@media(max-width:640px){.cifras{grid-template-columns:minmax(0,1fr)}}
+table{width:100%;border-collapse:collapse;background:var(--sup);border-radius:12px;overflow:hidden;border:1px solid var(--linea)}
+th,td{padding:11px 14px;border-bottom:1px solid var(--linea);text-align:left;vertical-align:top}
+th{font-size:14px;color:var(--suave);font-weight:700;background:light-dark(#f6efdf,#0c2140)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:700}
+.tablas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media(max-width:860px){.tablas{grid-template-columns:minmax(0,1fr)}}
+.docs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.docs li{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;background:var(--sup);border:1px solid var(--linea);border-radius:12px;padding:14px 16px}
+.docs li div{flex:1 1 240px}
+.docs small{display:block;color:var(--suave)}
+
+/* Donar */
+.donar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:900px){.donar{grid-template-columns:minmax(0,1fr)}}
+.dato{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font-size:16px}
+.dato code{font:700 18px "Source Sans 3",sans-serif;background:light-dark(#f6efdf,#0c2140);padding:6px 10px;border-radius:8px;overflow-wrap:anywhere}
+.copiar{min-height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--linea);background:var(--sup);color:var(--ink);cursor:pointer;font:600 14px "Source Sans 3",sans-serif}
+
+/* Video */
+.media{aspect-ratio:16/9;border-radius:10px;background:linear-gradient(135deg,#0b2340,#2a4f7f);display:grid;place-items:center;margin-bottom:14px;color:var(--oro2);border:0;width:100%;cursor:pointer;overflow:hidden}
+.media iframe{width:100%;height:100%;border:0}
+.media svg{width:56px;height:56px}
+
+/* Pie */
+.pie{background:var(--noche);color:#c9d3e3;padding:48px max(5vw,16px) 24px}
+.pie-in{max-width:1180px;margin:auto;display:grid;grid-template-columns:170px minmax(0,1.4fr) minmax(0,1fr);gap:28px}
+.pie h2{font-size:20px;color:var(--oroclaro)}
+.pie a{color:var(--oro2)}
+.pie-logo{background:radial-gradient(circle,#fffaf0,#efdcb4);border-radius:50%;padding:6px}
+.pie-nav{list-style:none;padding:0;margin:0;columns:2}
+.pie-nav a{display:inline-block;padding:4px 0;text-decoration:none}
+.pie-final{text-align:center;border-top:1px solid #ffffff1f;margin:32px auto 0;padding-top:18px;font-size:14px;max-width:none}
+@media(max-width:760px){.pie-in{grid-template-columns:minmax(0,1fr)}.pie-logo{width:110px}}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  table{font-size:14px}
+  th,td{padding:9px 10px}
+}
+.donar .dato{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px}
+.donar .dato span{grid-column:1/-1;font-size:14px;color:var(--suave)}
+.donar .dato code{justify-self:start}
+blockquote.verso{margin:0 0 0 clamp(0px,3vw,36px)}

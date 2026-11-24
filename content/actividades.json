@@ -1,0 +1,5 @@
+{"actividades":[
+ {"tipo":"estudio","fecha":"2026-12-03","hora":"19:00","lugar_es":"En línea","lugar_en":"Online","titulo_es":"Estudio bíblico: Evangelio de Juan","titulo_en":"Bible study: Gospel of John","descripcion_es":"Cada miércoles. Traiga su Biblia y sus preguntas.","descripcion_en":"Every Wednesday. Bring your Bible and your questions.","enlace":""},
+ {"tipo":"debate","fecha":"2026-12-13","hora":"16:00","lugar_es":"Ciudad de Panamá","lugar_en":"Panama City","titulo_es":"Debate abierto: fe y razón","titulo_en":"Open debate: faith and reason","descripcion_es":"Conversación respetuosa con preguntas del público.","descripcion_en":"A respectful conversation with questions from the audience.","enlace":""},
+ {"tipo":"foro","fecha":"2026-12-20","hora":"18:00","lugar_es":"En línea","lugar_en":"Online","titulo_es":"Foro: la segunda venida de Cristo","titulo_en":"Forum: the second coming of Christ","descripcion_es":"Lo que enseña la Escritura sobre Su regreso.","descripcion_en":"What Scripture teaches about His return.","enlace":""}
+]}

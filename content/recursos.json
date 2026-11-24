@@ -1,0 +1,8 @@
+{"recursos":[
+ {"tipo":"video","titulo_es":"¿Quién es Jesús?","titulo_en":"Who is Jesus?","descripcion_es":"Una introducción clara al mensaje del Evangelio.","descripcion_en":"A clear introduction to the Gospel message.","enlace":"https://www.youtube.com/","archivo":""},
+ {"tipo":"podcast","titulo_es":"Podcast El Volverá, episodio 1","titulo_en":"El Volverá Podcast, episode 1","descripcion_es":"La Gran Comisión: Mateo 28:18-20.","descripcion_en":"The Great Commission: Matthew 28:18-20.","enlace":"","archivo":""},
+ {"tipo":"audio","titulo_es":"Evangelio de Juan en audio","titulo_en":"Gospel of John in audio","descripcion_es":"Lectura en voz alta, Reina-Valera 1960.","descripcion_en":"Read aloud, King James Version.","enlace":"","archivo":""},
+ {"tipo":"publicacion","titulo_es":"Folleto: El camino de salvación","titulo_en":"Booklet: The way of salvation","descripcion_es":"Para imprimir y compartir.","descripcion_en":"To print and share.","enlace":"","archivo":""},
+ {"tipo":"pelicula","titulo_es":"Película recomendada: La vida de Jesús","titulo_en":"Recommended film: The life of Jesus","descripcion_es":"Basada en el Evangelio de Lucas.","descripcion_en":"Based on the Gospel of Luke.","enlace":"","archivo":""},
+ {"tipo":"video","titulo_es":"Debate: ¿Es confiable la Biblia?","titulo_en":"Debate: Is the Bible reliable?","descripcion_es":"Grabación de nuestro primer debate abierto.","descripcion_en":"Recording of our first open debate.","enlace":"","archivo":""}
+]}

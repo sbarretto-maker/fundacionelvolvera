@@ -1,0 +1,130 @@
+# Panel de administración (Pages CMS: https://pagescms.org)
+# Permite editar el contenido del sitio desde un formulario, sin programar.
+media:
+  input: documentos
+  output: /documentos
+content:
+  - name: noticias
+    label: Noticias
+    type: file
+    path: content/noticias.json
+    format: json
+    fields:
+      - name: noticias
+        label: Noticias
+        type: object
+        list: true
+        fields:
+          - { name: fecha, label: Fecha, type: date, required: true }
+          - { name: titulo_es, label: Título (español), type: string, required: true }
+          - { name: titulo_en, label: Title (English), type: string }
+          - { name: resumen_es, label: Resumen (español), type: text }
+          - { name: resumen_en, label: Summary (English), type: text }
+          - { name: enlace, label: Enlace opcional, type: string }
+  - name: recursos
+    label: Recursos (videos, audios, podcasts, películas, publicaciones)
+    type: file
+    path: content/recursos.json
+    format: json
+    fields:
+      - name: recursos
+        label: Recursos
+        type: object
+        list: true
+        fields:
+          - name: tipo
+            label: Tipo
+            type: select
+            options: { values: [video, audio, podcast, pelicula, publicacion] }
+          - { name: titulo_es, label: Título (español), type: string, required: true }
+          - { name: titulo_en, label: Title (English), type: string }
+          - { name: descripcion_es, label: Descripción (español), type: text }
+          - { name: descripcion_en, label: Description (English), type: text }
+          - { name: enlace, label: Enlace (YouTube, Spotify, etc.), type: string }
+          - { name: archivo, label: Archivo (PDF o MP3), type: file }
+  - name: actividades
+    label: Actividades (foros, debates, estudios, eventos)
+    type: file
+    path: content/actividades.json
+    format: json
+    fields:
+      - name: actividades
+        label: Actividades
+        type: object
+        list: true
+        fields:
+          - name: tipo
+            label: Tipo
+            type: select
+            options: { values: [estudio, debate, foro, evento] }
+          - { name: fecha, label: Fecha, type: date, required: true }
+          - { name: hora, label: Hora (ej. 19:00), type: string }
+          - { name: titulo_es, label: Título (español), type: string, required: true }
+          - { name: titulo_en, label: Title (English), type: string }
+          - { name: lugar_es, label: Lugar (español), type: string }
+          - { name: lugar_en, label: Place (English), type: string }
+          - { name: descripcion_es, label: Descripción (español), type: text }
+          - { name: descripcion_en, label: Description (English), type: text }
+          - { name: enlace, label: Enlace de inscripción o transmisión, type: string }
+  - name: finanzas
+    label: Finanzas y documentos auditados
+    type: file
+    path: content/finanzas.json
+    format: json
+    fields:
+      - { name: moneda, label: Moneda, type: string }
+      - { name: ejemplo, label: "¿Son datos de ejemplo? (desmarcar al publicar los reales)", type: boolean }
+      - name: periodos
+        label: Períodos (el primero es el que se muestra)
+        type: object
+        list: true
+        fields:
+          - { name: anio, label: Año, type: string }
+          - name: ingresos
+            label: Ingresos
+            type: object
+            list: true
+            fields:
+              - { name: concepto_es, label: Concepto (español), type: string }
+              - { name: concepto_en, label: Item (English), type: string }
+              - { name: monto, label: Monto, type: number }
+          - name: gastos
+            label: Gastos
+            type: object
+            list: true
+            fields:
+              - { name: concepto_es, label: Concepto (español), type: string }
+              - { name: concepto_en, label: Item (English), type: string }
+              - { name: monto, label: Monto, type: number }
+      - name: documentos
+        label: Documentos (PDF)
+        type: object
+        list: true
+        fields:
+          - { name: anio, label: Año, type: string }
+          - name: tipo
+            label: Tipo
+            type: select
+            options: { values: [auditado, informe, legal] }
+          - { name: titulo_es, label: Título (español), type: string }
+          - { name: titulo_en, label: Title (English), type: string }
+          - { name: archivo, label: Archivo PDF, type: file }
+  - name: config
+    label: Datos de contacto y donaciones
+    type: file
+    path: content/config.json
+    format: json
+    fields:
+      - { name: correo, label: Correo de contacto, type: string }
+      - { name: whatsapp, label: WhatsApp (con código de país, ej. 50760000000), type: string }
+      - { name: yappy_directorio, label: Nombre de la fundación en el directorio de Yappy, type: string }
+      - { name: yappy_numero, label: Número de Yappy (opcional), type: string }
+      - { name: yappy_nombre, label: Nombre del titular, type: string }
+      - { name: paypal_enlace, label: Enlace de donación de PayPal, type: string }
+      - { name: banco_nombre, label: Banco, type: string }
+      - { name: banco_cuenta, label: Número de cuenta, type: string }
+      - { name: banco_swift, label: Código SWIFT, type: string }
+      - { name: direccion, label: Dirección, type: string }
+      - { name: youtube, label: Canal de YouTube, type: string }
+      - { name: facebook, label: Facebook, type: string }
+      - { name: instagram, label: Instagram, type: string }
