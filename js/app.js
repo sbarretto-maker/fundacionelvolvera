@@ -179,7 +179,7 @@ const I = {
   diario:'<rect x="6" y="7" width="28" height="26" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/><path d="M11 14h18M11 20h18M11 26h11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>',
   balanza:'<path d="M20 6v28M10 34h20M8 12h24M8 12l-4 10h8zM32 12l-4 10h8z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>'
 };
-const ico = n => `<svg class="ico" viewBox="0 0 40 40" aria-hidden="true">${I[n]}</svg>`;
+const ico = n => `<span class="ico"><svg viewBox="0 0 40 40" aria-hidden="true">${I[n]}</svg></span>`;
 
 /* Carga de contenido */
 const cache = {};
@@ -191,6 +191,7 @@ async function datos(nombre) {
 }
 
 /* ---------- Páginas ---------- */
+const encabezado = (k, i) => `<section class="encab"><div class="in"><h1>${t(k)}</h1><p>${t(i)}</p></div></section>`;
 const P = {};
 
 P["inicio"] = async () => {
@@ -199,7 +200,7 @@ P["inicio"] = async () => {
   const secs = [["conoce-a-jesus","nav_jesus","s_jesus","cruz"],["biblia","nav_biblia","s_biblia","libro"],["recursos","nav_recursos","s_recursos","play"],["actividades","nav_actividades","s_actividades","gente"],["noticias","nav_noticias","s_noticias","diario"],["finanzas","nav_finanzas","s_finanzas","balanza"]];
   const rayos = Array.from({length:24},(_,i)=>`<path d="M100 100 L${(100+98*Math.cos((i*15-3)*Math.PI/180)).toFixed(1)} ${(100+98*Math.sin((i*15-3)*Math.PI/180)).toFixed(1)} L${(100+98*Math.cos((i*15+3)*Math.PI/180)).toFixed(1)} ${(100+98*Math.sin((i*15+3)*Math.PI/180)).toFixed(1)}Z" fill="url(#r)" opacity="${i%2?.45:.8}"/>`).join("");
   return `
-  <section class="portada">
+  <section class="portada foto">
     <div class="portada-in">
       <div>
         <h1>${t("hero_t")}<em>${t("hero_s")}</em></h1>
@@ -209,14 +210,10 @@ P["inicio"] = async () => {
           <a class="btn linea" href="#donar">${t("hero_b2")}</a>
         </div>
       </div>
-      <div class="halo">
-        <svg viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="r"><stop offset=".3" stop-color="#ffe7b0"/><stop offset="1" stop-color="#e9b965" stop-opacity="0"/></radialGradient></defs><g class="rayos">${rayos}</g></svg>
-        <div class="logo-circ"><img src="img/logo.png" alt="Fundación El Volverá, He Will Return" width="560" height="560"></div>
-      </div>
     </div>
   </section>
   <section class="band oscura"><div class="in">
-    <h2>${t("gc_t")}</h2><p class="intro">${t("gc_p")}</p>${verso("gc")}
+    <div class="dos"><div><h2>${t("gc_t")}</h2><p class="intro">${t("gc_p")}</p></div>${verso("gc")}</div>
   </div></section>
   <section class="band"><div class="in">
     <h2>${t("sec_t")}</h2><p class="intro">${t("sec_p")}</p>
@@ -228,8 +225,8 @@ P["inicio"] = async () => {
     <p style="margin-top:18px"><a href="#noticias">${t("todas")} →</a></p>
   </div></section>
   <section class="band oscura"><div class="in">
-    <h2>${t("trans_t")}</h2><p class="intro">${t("trans_p")}</p>
-    <div class="botones"><a class="btn oro" href="#finanzas">${t("trans_b")}</a><a class="btn linea" href="#donar">${t("nav_donar")}</a></div>
+    <div class="dos"><div><h2>${t("trans_t")}</h2><p class="intro">${t("trans_p")}</p></div>
+    <div class="botones"><a class="btn oro" href="#finanzas">${t("trans_b")}</a><a class="btn linea" href="#donar">${t("nav_donar")}</a></div></div>
   </div></section>`;
 };
 
@@ -237,8 +234,7 @@ P["conoce-a-jesus"] = async () => {
   const c = await datos("config").catch(()=>({}));
   const pasos = [["p1_t","j316"],["p2_t","r323"],["p3_t","r58"],["p4_t","r109"]];
   return `
-  <section class="band"><div class="in">
-    <h1>${t("jesus_t")}</h1><p class="intro">${t("jesus_p")}</p>
+  ${encabezado("jesus_t","jesus_p")}<section class="band"><div class="in">
     <ol class="pasos">${pasos.map(([h,v])=>`<li><div><h3>${t(h)}</h3>${verso(v)}</div></li>`).join("")}</ol>
   </div></section>
   <section class="band oscura"><div class="in">
@@ -256,8 +252,7 @@ P["conoce-a-jesus"] = async () => {
 P["biblia"] = async () => {
   const claves = ["gc","j316","j146","r623","e28","j143"];
   return `
-  <section class="band"><div class="in">
-    <h1>${t("biblia_t")}</h1><p class="intro">${t("biblia_p")}</p>
+  ${encabezado("biblia_t","biblia_p")}<section class="band"><div class="in">
     <div class="versiones">
       <div class="tar">${ico("libro")}<h3>Reina-Valera 1960</h3><p>${t("rv60_p")}</p><a class="btn azul" href="https://www.biblegateway.com/versions/Reina-Valera-1960-RVR1960-Biblia/" target="_blank" rel="noopener">${t("leer")}</a></div>
       <div class="tar">${ico("libro")}<h3>King James Version</h3><p>${t("kjv_p")}</p><a class="btn azul" href="https://www.biblegateway.com/versions/King-James-Version-KJV-Bible/" target="_blank" rel="noopener">${t("leer")}</a></div>
@@ -288,8 +283,7 @@ P["recursos"] = async () => {
   const {recursos} = await datos("recursos");
   const lista = recursos.filter(r => filtroRec === "todo" || r.tipo === filtroRec);
   return `
-  <section class="band"><div class="in">
-    <h1>${t("rec_t")}</h1><p class="intro">${t("rec_p")}</p>
+  ${encabezado("rec_t","rec_p")}<section class="band"><div class="in">
     <div class="filtros" data-filtro="rec">${["todo",...TIPOS_REC].map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filtroRec}">${t("f_"+f)}</button>`).join("")}</div>
     ${lista.length ? `<div class="rej">${lista.map(r=>{
       const id = ytId(r.enlace);
@@ -308,8 +302,7 @@ P["actividades"] = async () => {
   const c = await datos("config").catch(()=>({}));
   const lista = actividades.filter(a => filtroAct === "todo" || a.tipo === filtroAct).sort((a,b)=>a.fecha.localeCompare(b.fecha));
   return `
-  <section class="band"><div class="in">
-    <h1>${t("act_t")}</h1><p class="intro">${t("act_p")}</p>
+  ${encabezado("act_t","act_p")}<section class="band"><div class="in">
     <div class="filtros" data-filtro="act">${["todo",...TIPOS_ACT].map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filtroAct}">${t("f_"+f)}</button>`).join("")}</div>
     ${lista.length ? `<div class="rej">${lista.map(a=>`<article class="tar"><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><h3>${L(a,"titulo")}</h3><p class="fecha">${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</p><p>${L(a,"descripcion")}</p>${url(a.enlace)?`<a class="mas" href="${url(a.enlace)}" target="_blank" rel="noopener">${t("inscribir")} →</a>`:""}</article>`).join("")}</div>` : `<p>${t("vacio")}</p>`}
   </div></section>
@@ -323,7 +316,7 @@ function tarNoticia(n) {
 }
 P["noticias"] = async () => {
   const {noticias} = await datos("noticias");
-  return `<section class="band"><div class="in"><h1>${t("not_t")}</h1><p class="intro">${t("not_p")}</p>
+  return `${encabezado("not_t","not_p")}<section class="band"><div class="in">
     <div class="rej">${noticias.slice().sort((a,b)=>b.fecha.localeCompare(a.fecha)).map(tarNoticia).join("")}</div></div></section>`;
 };
 
@@ -337,8 +330,7 @@ P["finanzas"] = async () => {
     <tr class="total"><td>${t("total")}</td><td class="num">${dinero(tot,f.moneda)}</td><td class="num">100%</td></tr></tbody></table></div>`;
   const docs = f.documentos.slice().sort((a,b)=>String(b.anio).localeCompare(String(a.anio)));
   return `
-  <section class="band"><div class="in">
-    <h1>${t("fin_t")}</h1><p class="intro">${t("fin_p")}</p>
+  ${encabezado("fin_t","fin_p")}<section class="band"><div class="in">
     ${f.ejemplo?`<p class="aviso">${t("ejemplo")}</p>`:""}
     <h2 style="margin-top:24px">${t("periodo")} ${esc(per.anio)}</h2>
     <div class="cifras">
@@ -360,8 +352,7 @@ P["donar"] = async () => {
   const c = await datos("config");
   const pp = url(c.paypal_enlace);
   return `
-  <section class="band"><div class="in">
-    <h1>${t("donar_t")}</h1><p class="intro">${t("donar_p")}</p>
+  ${encabezado("donar_t","donar_p")}<section class="band"><div class="in">
     <div class="donar">
       <div class="tar"><h3>Yappy · Banco General</h3><p>${t("yappy_p")}</p>${dato(t("yappy_buscar"),c.yappy_directorio||"Fundación El Volverá")}${c.yappy_numero?dato(t("numero"),c.yappy_numero):""}</div>
       <div class="tar"><h3>PayPal</h3><p>${t("paypal_p")}</p>${pp?`<a class="btn oro" href="${pp}" target="_blank" rel="noopener">${t("paypal_b")}</a>`:`<span class="btn oro" aria-disabled="true">${t("paypal_b")}</span><p class="nota">${t("por_confirmar")}</p>`}</div>
@@ -380,8 +371,7 @@ function contactoHTML(c) {
 P["nosotros"] = async () => {
   const c = await datos("config").catch(()=>({}));
   return `
-  <section class="band"><div class="in">
-    <h1>${t("nos_t")}</h1><p class="intro">${t("nos_p1")}</p><p>${t("nos_p2")}</p>
+  ${encabezado("nos_t","nos_p1")}<section class="band"><div class="in"><p>${t("nos_p2")}</p>
     <div class="rej" style="margin-top:24px">
       <div class="tar"><h3>${t("mision")}</h3><p>${t("mision_p")}</p></div>
       <div class="tar"><h3>${t("vision")}</h3><p>${t("vision_p")}</p></div>
@@ -460,4 +450,5 @@ main.addEventListener("submit", e => {
 });
 
 mostrar(false);
+
 }
