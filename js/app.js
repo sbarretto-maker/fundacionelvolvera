@@ -304,7 +304,7 @@ P["actividades"] = async () => {
   return `
   ${encabezado("act_t","act_p")}<section class="band"><div class="in">
     <div class="filtros" data-filtro="act">${["todo",...TIPOS_ACT].map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filtroAct}">${t("f_"+f)}</button>`).join("")}</div>
-    ${lista.length ? `<div class="rej">${lista.map(a=>`<article class="tar"><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><h3>${L(a,"titulo")}</h3><p class="fecha">${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</p><p>${L(a,"descripcion")}</p>${url(a.enlace)?`<a class="mas" href="${url(a.enlace)}" target="_blank" rel="noopener">${t("inscribir")} →</a>`:""}</article>`).join("")}</div>` : `<p>${t("vacio")}</p>`}
+    ${lista.length ? `<div class="rej">${lista.map(a=>`<article class="tar"><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><h3>${L(a,"titulo")}</h3><p class="fecha">${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</p><p>${L(a,"descripcion")}</p>${url(a.archivo)?`<a class="mas" href="${url(a.archivo)}" target="_blank" rel="noopener">${t("descargar")} →</a>`:""}${url(a.enlace)?`<a class="mas" href="${url(a.enlace)}" target="_blank" rel="noopener">${t("inscribir")} →</a>`:""}</article>`).join("")}</div>` : `<p>${t("vacio")}</p>`}
   </div></section>
   <section class="band alt"><div class="in">
     <h2>${t("foro_t")}</h2><p>${t("foro_p")}</p>${contactoHTML(c)}

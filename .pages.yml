@@ -66,6 +66,7 @@ content:
           - { name: descripcion_es, label: Descripción (español), type: text }
           - { name: descripcion_en, label: Description (English), type: text }
           - { name: enlace, label: Enlace de inscripción o transmisión, type: string }
+          - { name: archivo, label: Documento adjunto (PDF u otro), type: file }
   - name: finanzas
     label: Finanzas y documentos auditados
     type: file
