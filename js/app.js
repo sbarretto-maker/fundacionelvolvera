@@ -44,7 +44,7 @@ const T = {
     act_t:"Actividades", act_p:"Encuentros para estudiar la Biblia, conversar y dar a conocer el Evangelio. Abiertos a todos.",
     f_estudio:"Estudios bíblicos", f_debate:"Debates", f_foro:"Foros", f_evento:"Eventos",
     t_estudio:"Estudio bíblico", t_debate:"Debate", t_foro:"Foro", t_evento:"Evento",
-    inscribir:"Más información", foro_t:"Foro en línea",
+    inscribir:"Más información", ruleta_t:"Próximas actividades", ant:"Anterior", sig:"Siguiente", ir_a:"Ir a la imagen", ver_act:"Ver actividades", foro_t:"Foro en línea",
     foro_p:"Estamos preparando un espacio en línea para preguntas y conversación. Mientras tanto, escríbenos y te responderemos personalmente.",
     not_t:"Noticias", not_p:"Novedades de la fundación y de la obra.", leer_mas:"Leer más",
     fin_t:"Finanzas y transparencia", fin_p:"Publicamos cómo recibimos y usamos cada donación. Los estados financieros son revisados por auditores independientes.",
@@ -108,7 +108,7 @@ const T = {
     act_t:"Activities", act_p:"Gatherings to study the Bible, talk together and make the Gospel known. Open to everyone.",
     f_estudio:"Bible studies", f_debate:"Debates", f_foro:"Forums", f_evento:"Events",
     t_estudio:"Bible study", t_debate:"Debate", t_foro:"Forum", t_evento:"Event",
-    inscribir:"More information", foro_t:"Online forum",
+    inscribir:"More information", ruleta_t:"Upcoming activities", ant:"Previous", sig:"Next", ir_a:"Go to image", ver_act:"See activities", foro_t:"Online forum",
     foro_p:"We are preparing an online space for questions and conversation. Meanwhile, write to us and we will answer you personally.",
     not_t:"News", not_p:"Updates from the foundation and its work.", leer_mas:"Read more",
     fin_t:"Finances and transparency", fin_p:"We publish how we receive and use every donation. Our financial statements are reviewed by independent auditors.",
@@ -165,7 +165,7 @@ try { lang = localStorage.getItem("ev-idioma") || ((navigator.language||"es").st
 const t = k => (T[lang][k] ?? T.es[k] ?? k);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const L = (o, campo) => esc(o[campo + "_" + lang] || o[campo + "_es"] || "");
-const url = u => /^(https?:\/\/|documentos\/|\/)/.test(u || "") ? esc(u) : "";
+const url = u => /^(https?:\/\/|documentos\/|\/)/.test(u || "") ? esc(/^\/(?!\/)/.test(u) ? u.slice(1) : u) : "";
 const fechaF = f => { try { return new Date(f + "T12:00:00").toLocaleDateString(lang === "es" ? "es-PA" : "en-US", {day:"numeric",month:"long",year:"numeric"}); } catch(e) { return esc(f); } };
 const dinero = (n, m) => new Intl.NumberFormat(lang === "es" ? "es-PA" : "en-US", {style:"currency",currency:m||"USD",maximumFractionDigits:0}).format(n);
 const verso = (k, l = lang) => `<blockquote class="verso">${esc(V[k][l][0])}<cite>${esc(V[k][l][1])}${l==="es" && k!=="gc" ? ", RV60" : (l==="en" && k!=="gc" ? ", KJV" : "")}</cite></blockquote>`;
@@ -195,7 +195,8 @@ const encabezado = (k, i) => `<section class="encab"><div class="in"><h1>${t(k)}
 const P = {};
 
 P["inicio"] = async () => {
-  let nots = [];
+  let nots = [], acts = [];
+  try { acts = (await datos("actividades")).actividades.slice().sort((a,b)=>a.fecha.localeCompare(b.fecha)); } catch(e) {}
   try { nots = (await datos("noticias")).noticias.slice().sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,3); } catch(e) {}
   const secs = [["conoce-a-jesus","nav_jesus","s_jesus","cruz"],["biblia","nav_biblia","s_biblia","libro"],["recursos","nav_recursos","s_recursos","play"],["actividades","nav_actividades","s_actividades","gente"],["noticias","nav_noticias","s_noticias","diario"],["finanzas","nav_finanzas","s_finanzas","balanza"]];
   const rayos = Array.from({length:24},(_,i)=>`<path d="M100 100 L${(100+98*Math.cos((i*15-3)*Math.PI/180)).toFixed(1)} ${(100+98*Math.sin((i*15-3)*Math.PI/180)).toFixed(1)} L${(100+98*Math.cos((i*15+3)*Math.PI/180)).toFixed(1)} ${(100+98*Math.sin((i*15+3)*Math.PI/180)).toFixed(1)}Z" fill="url(#r)" opacity="${i%2?.45:.8}"/>`).join("");
@@ -215,6 +216,7 @@ P["inicio"] = async () => {
   <section class="band oscura"><div class="in">
     <div class="dos"><div><h2>${t("gc_t")}</h2><p class="intro">${t("gc_p")}</p></div>${verso("gc")}</div>
   </div></section>
+  ${acts.some(a=>url(a.imagen))?`<section class="band alt"><div class="in"><h2>${t("ruleta_t")}</h2>${ruleta(acts)}<p style="margin-top:18px"><a href="#actividades">${t("ver_act")} →</a></p></div></section>`:""}
   <section class="band"><div class="in">
     <h2>${t("sec_t")}</h2><p class="intro">${t("sec_p")}</p>
     <div class="rej secciones">${secs.map(([r,n,d,i])=>`<a class="tar" href="#${r}">${ico(i)}<h3>${t(n)}</h3><p>${t(d)}</p><span class="mas">${t("ver")} →</span></a>`).join("")}</div>
@@ -297,12 +299,46 @@ P["recursos"] = async () => {
 };
 
 const TIPOS_ACT = ["estudio","debate","foro","evento"];
+function ruleta(lista) {
+  const conImg = lista.filter(a => url(a.imagen));
+  if (!conImg.length) return "";
+  return `<div class="ruleta" aria-roledescription="carrusel" aria-label="${t("ruleta_t")}">
+    <div class="pista" tabindex="0">${conImg.map((a,i)=>{
+      const destino = url(a.archivo) || url(a.enlace) || url(a.imagen);
+      return `<figure class="lamina" aria-label="${i+1} / ${conImg.length}">
+        <a href="${destino}" target="_blank" rel="noopener"><img src="${url(a.imagen)}" alt="${L(a,"titulo")}" loading="lazy"></a>
+        <figcaption><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><strong>${L(a,"titulo")}</strong><span>${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</span></figcaption>
+      </figure>`;}).join("")}</div>
+    ${conImg.length>1?`<button class="r-btn r-ant" type="button" aria-label="${t("ant")}">‹</button><button class="r-btn r-sig" type="button" aria-label="${t("sig")}">›</button>
+    <div class="puntos">${conImg.map((_,i)=>`<button type="button" data-i="${i}" aria-label="${t("ir_a")} ${i+1}" aria-current="${i===0}"></button>`).join("")}</div>`:""}
+  </div>`;
+}
+let ruletaTimer = null;
+function iniciarRuleta() {
+  clearInterval(ruletaTimer);
+  const r = main.querySelector(".ruleta"); if (!r) return;
+  const pista = r.querySelector(".pista"), laminas = [...pista.children], puntos = [...r.querySelectorAll(".puntos button")];
+  if (laminas.length < 2) return;
+  const actual = () => Math.round(pista.scrollLeft / pista.clientWidth);
+  const ir = i => { i = (i + laminas.length) % laminas.length; pista.scrollTo({left: i * pista.clientWidth, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); };
+  pista.addEventListener("scroll", () => { const i = actual(); puntos.forEach((p,k)=>p.setAttribute("aria-current", String(k===i))); }, {passive:true});
+  r.querySelector(".r-ant").addEventListener("click", () => ir(actual()-1));
+  r.querySelector(".r-sig").addEventListener("click", () => ir(actual()+1));
+  puntos.forEach(p => p.addEventListener("click", () => ir(+p.dataset.i)));
+  pista.addEventListener("keydown", e => { if (e.key==="ArrowRight") { e.preventDefault(); ir(actual()+1); } if (e.key==="ArrowLeft") { e.preventDefault(); ir(actual()-1); } });
+  let pausa = false;
+  r.addEventListener("mouseenter", () => pausa = true); r.addEventListener("mouseleave", () => pausa = false);
+  r.addEventListener("focusin", () => pausa = true); r.addEventListener("focusout", () => pausa = false);
+  r.addEventListener("touchstart", () => pausa = true, {passive:true});
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) ruletaTimer = setInterval(() => { if (!pausa && document.contains(r)) ir(actual()+1); }, 5000);
+}
 P["actividades"] = async () => {
   const {actividades} = await datos("actividades");
   const c = await datos("config").catch(()=>({}));
   const lista = actividades.filter(a => filtroAct === "todo" || a.tipo === filtroAct).sort((a,b)=>a.fecha.localeCompare(b.fecha));
   return `
   ${encabezado("act_t","act_p")}<section class="band"><div class="in">
+    ${ruleta(actividades.slice().sort((a,b)=>a.fecha.localeCompare(b.fecha)))}
     <div class="filtros" data-filtro="act">${["todo",...TIPOS_ACT].map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===filtroAct}">${t("f_"+f)}</button>`).join("")}</div>
     ${lista.length ? `<div class="rej">${lista.map(a=>`<article class="tar"><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><h3>${L(a,"titulo")}</h3><p class="fecha">${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</p><p>${L(a,"descripcion")}</p>${url(a.archivo)?`<a class="mas" href="${url(a.archivo)}" target="_blank" rel="noopener">${t("descargar")} →</a>`:""}${url(a.enlace)?`<a class="mas" href="${url(a.enlace)}" target="_blank" rel="noopener">${t("inscribir")} →</a>`:""}</article>`).join("")}</div>` : `<p>${t("vacio")}</p>`}
   </div></section>
@@ -405,7 +441,7 @@ async function mostrar(enfocar) {
   const ruta = RUTAS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
   marco(ruta);
   nav.classList.remove("abierto"); menuBtn.setAttribute("aria-expanded","false");
-  try { main.innerHTML = await P[ruta](); }
+  try { main.innerHTML = await P[ruta](); iniciarRuleta(); }
   catch(e) { main.innerHTML = `<section class="band"><div class="in"><p class="aviso">${t("error")}</p></div></section>`; }
   document.title = (ruta === "inicio" ? "" : t(NAVK[ruta]) + " · ") + (lang === "es" ? "Fundación El Volverá" : "El Volverá Foundation");
   if (enfocar) { window.scrollTo(0,0); main.focus({preventScroll:true}); }

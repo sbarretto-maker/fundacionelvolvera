@@ -359,3 +359,34 @@ html[data-paleta=amarillo] .nav a{font-weight:600}
 html[data-paleta=amarillo] .nav a[aria-current=page]{background:#f7ecd6;color:#7f520c}
 html[data-paleta=amarillo] .nav a.donar-link{background:linear-gradient(135deg,#c48a2a,#9a6612);color:#fff}
 html[data-paleta=amarillo] .idioma,html[data-paleta=amarillo] .menu-btn{color:#8a5a0e;border-color:#c48a2a}
+
+/* Ruleta de imágenes */
+.ruleta{position:relative;margin:0 0 28px;border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgb(90 55 5 / .18);background:#2a1d0c}
+.pista{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;outline:none}
+.pista::-webkit-scrollbar{display:none}
+.lamina{flex:0 0 100%;min-width:0;margin:0;scroll-snap-align:start;position:relative;aspect-ratio:16/7}
+.lamina a{display:block;height:100%}
+.lamina img{width:100%;height:100%;object-fit:cover;display:block}
+.lamina figcaption{position:absolute;left:0;right:0;bottom:0;padding:56px clamp(16px,3vw,36px) 46px;background:linear-gradient(0deg,rgb(40 26 6 / .85),transparent);color:#fff;display:flex;flex-direction:column;gap:4px;pointer-events:none}
+.lamina figcaption strong{font:800 clamp(20px,2.4vw,32px)/1.15 "Plus Jakarta Sans",sans-serif;letter-spacing:-.01em}
+.lamina figcaption span:last-child{font-size:15px;opacity:.95}
+.lamina .etq{background:#fff3d6;color:#7f520c}
+.r-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgb(255 255 255 / .92);color:#7f520c;font:700 30px/1 sans-serif;cursor:pointer;box-shadow:0 6px 20px #0003;display:grid;place-items:center;padding-bottom:4px}
+.r-btn:hover{background:#fff}
+.r-ant{left:14px}.r-sig{right:14px}
+.puntos{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:4px}
+.puntos button{width:28px;height:28px;border:0;background:transparent;cursor:pointer;display:grid;place-items:center;padding:0}
+.puntos button::before{content:"";width:10px;height:10px;border-radius:50%;background:#ffffff88;transition:width .2s}
+.puntos button[aria-current=true]::before{background:#fff;width:24px;border-radius:6px}
+@media(max-width:640px){.lamina{aspect-ratio:4/3}.r-btn{width:40px;height:40px;font-size:24px}.lamina figcaption{padding-bottom:44px}}
+/* Ruleta: imagen completa (sirve para afiches verticales u horizontales) y texto debajo */
+.ruleta{background:#fff}
+.lamina{aspect-ratio:auto;display:flex;flex-direction:column}
+.lamina a{height:auto;aspect-ratio:16/8;background:radial-gradient(circle,#4a3312,#1e1408)}
+.lamina img{object-fit:contain}
+.lamina figcaption{position:static;background:linear-gradient(135deg,#c48a2a,#9a6612);padding:16px clamp(16px,3vw,32px) 44px;pointer-events:auto}
+.r-btn{top:calc(50% - 40px)}
+@media(max-width:640px){.lamina a{aspect-ratio:16/10}.r-btn{top:calc(50% - 50px)}}
+.lamina a{position:relative;max-height:520px;width:100%}
+.lamina img{position:absolute;inset:0;width:100%;height:100%}
+.lamina figcaption{flex:1}.ruleta{background:#9a6612}
