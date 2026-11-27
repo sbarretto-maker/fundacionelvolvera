@@ -47,6 +47,18 @@
       "descripcion_es": "prueba de una imagen subida",
       "descripcion_en": "test",
       "imagen": "/documentos/foto1.jpg"
+    },
+    {
+      "tipo": "evento",
+      "fecha": "2026-08-15",
+      "hora": "21:00",
+      "titulo_es": "El Rey león",
+      "titulo_en": "The King Lyon",
+      "lugar_es": "Cinepolis Multiplaza",
+      "lugar_en": "Cinepolis Multiplaza",
+      "descripcion_es": "Gala de cine del Rey León para recavar fondos para la fundación.",
+      "descripcion_en": "Pictura for fund fundatión",
+      "imagen": "/documentos/foto3.jpg"
     }
   ]
 }
