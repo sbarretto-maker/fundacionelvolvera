@@ -390,3 +390,30 @@ html[data-paleta=amarillo] .idioma,html[data-paleta=amarillo] .menu-btn{color:#8
 .lamina a{position:relative;max-height:520px;width:100%}
 .lamina img{position:absolute;inset:0;width:100%;height:100%}
 .lamina figcaption{flex:1}.ruleta{background:#9a6612}
+
+/* Ruleta v2: 3 fotos a la vez + visor grande debajo */
+.ruleta{background:transparent;box-shadow:none;border-radius:0;overflow:visible;margin:0}
+.pista{gap:18px;padding:6px 2px 10px;scroll-padding:0 2px}
+.lamina{flex:0 0 calc((100% - 36px) / 3);aspect-ratio:auto;display:flex;flex-direction:column;border:0;padding:0;margin:0;background:#fff;border-radius:18px;overflow:hidden;cursor:pointer;text-align:left;box-shadow:0 8px 26px rgb(90 55 5 / .12);outline:3px solid transparent;outline-offset:0;transition:transform .2s,outline-color .2s;font:inherit;color:inherit}
+.lamina:hover{transform:translateY(-3px)}
+.lamina[aria-pressed=true]{outline-color:#c48a2a}
+.lamina-img{display:block;aspect-ratio:16/10;background:#2a1d0c;position:relative}
+.lamina-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lamina-txt{display:flex;flex-direction:column;gap:2px;padding:12px 16px 14px}
+.lamina-txt strong{font:700 17px/1.25 "Plus Jakarta Sans",sans-serif;color:#7f520c}
+.lamina-txt small{font-size:14px;color:#5e4b2e}
+.r-btn{top:calc(50% - 30px);background:#fff;color:#7f520c;box-shadow:0 6px 20px rgb(90 55 5 / .25)}
+.r-ant{left:-10px}.r-sig{right:-10px}
+.ruleta-ayuda{margin:6px 0 18px}
+.visor{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgb(90 55 5 / .16);margin-bottom:32px;scroll-margin:90px}
+.visor-img{background:radial-gradient(circle,#4a3312,#1e1408);display:grid;place-items:center;min-height:320px}
+.visor-img img{width:100%;max-height:70vh;object-fit:contain;display:block}
+.visor-txt{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;align-self:center}
+.visor-txt h3{font-size:clamp(24px,2.4vw,34px);color:#7f520c}
+.visor .etq{align-self:flex-start}
+.btn.linea-d{border:2px solid #c48a2a;color:#7f520c;background:transparent}
+.visor.entra{animation:aparece .35s ease}
+@keyframes aparece{from{opacity:0;transform:translateY(10px)}}
+@media(prefers-reduced-motion:reduce){.visor.entra{animation:none}.lamina{transition:none}}
+@media(max-width:900px){.lamina{flex-basis:calc((100% - 18px) / 2)}.visor{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.lamina{flex-basis:78%}.r-ant{left:4px}.r-sig{right:4px}.visor-img{min-height:220px}}

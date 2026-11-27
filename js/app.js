@@ -44,7 +44,7 @@ const T = {
     act_t:"Actividades", act_p:"Encuentros para estudiar la Biblia, conversar y dar a conocer el Evangelio. Abiertos a todos.",
     f_estudio:"Estudios bíblicos", f_debate:"Debates", f_foro:"Foros", f_evento:"Eventos",
     t_estudio:"Estudio bíblico", t_debate:"Debate", t_foro:"Foro", t_evento:"Evento",
-    inscribir:"Más información", ruleta_t:"Próximas actividades", ant:"Anterior", sig:"Siguiente", ir_a:"Ir a la imagen", ver_act:"Ver actividades", foro_t:"Foro en línea",
+    inscribir:"Más información", ruleta_t:"Próximas actividades", ant:"Anterior", sig:"Siguiente", ir_a:"Ir a la imagen", ver_act:"Ver actividades", ver_grande:"Ver imagen completa", ruleta_ayuda:"Haga clic en una imagen para verla en grande aquí abajo.", foro_t:"Foro en línea",
     foro_p:"Estamos preparando un espacio en línea para preguntas y conversación. Mientras tanto, escríbenos y te responderemos personalmente.",
     not_t:"Noticias", not_p:"Novedades de la fundación y de la obra.", leer_mas:"Leer más",
     fin_t:"Finanzas y transparencia", fin_p:"Publicamos cómo recibimos y usamos cada donación. Los estados financieros son revisados por auditores independientes.",
@@ -108,7 +108,7 @@ const T = {
     act_t:"Activities", act_p:"Gatherings to study the Bible, talk together and make the Gospel known. Open to everyone.",
     f_estudio:"Bible studies", f_debate:"Debates", f_foro:"Forums", f_evento:"Events",
     t_estudio:"Bible study", t_debate:"Debate", t_foro:"Forum", t_evento:"Event",
-    inscribir:"More information", ruleta_t:"Upcoming activities", ant:"Previous", sig:"Next", ir_a:"Go to image", ver_act:"See activities", foro_t:"Online forum",
+    inscribir:"More information", ruleta_t:"Upcoming activities", ant:"Previous", sig:"Next", ir_a:"Go to image", ver_act:"See activities", ver_grande:"View full image", ruleta_ayuda:"Click an image to see it larger below.", foro_t:"Online forum",
     foro_p:"We are preparing an online space for questions and conversation. Meanwhile, write to us and we will answer you personally.",
     not_t:"News", not_p:"Updates from the foundation and its work.", leer_mas:"Read more",
     fin_t:"Finances and transparency", fin_p:"We publish how we receive and use every donation. Our financial statements are reviewed by independent auditors.",
@@ -299,39 +299,58 @@ P["recursos"] = async () => {
 };
 
 const TIPOS_ACT = ["estudio","debate","foro","evento"];
+let ruletaItems = [];
+function visorHTML(a) {
+  const arch = url(a.archivo), enl = url(a.enlace);
+  return `<div class="visor-img"><img src="${url(a.imagen)}" alt="${L(a,"titulo")}"></div>
+    <div class="visor-txt"><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span>
+    <h3>${L(a,"titulo")}</h3><p class="fecha">${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</p>
+    <p>${L(a,"descripcion")}</p>
+    <div class="botones">${arch?`<a class="btn oro" href="${arch}" target="_blank" rel="noopener">${t("descargar")}</a>`:""}${enl?`<a class="btn linea-d" href="${enl}" target="_blank" rel="noopener">${t("inscribir")}</a>`:""}<a class="btn linea-d" href="${url(a.imagen)}" target="_blank" rel="noopener">${t("ver_grande")}</a></div></div>`;
+}
 function ruleta(lista) {
-  const conImg = lista.filter(a => url(a.imagen));
-  if (!conImg.length) return "";
+  ruletaItems = lista.filter(a => url(a.imagen));
+  if (!ruletaItems.length) return "";
   return `<div class="ruleta" aria-roledescription="carrusel" aria-label="${t("ruleta_t")}">
-    <div class="pista" tabindex="0">${conImg.map((a,i)=>{
-      const destino = url(a.archivo) || url(a.enlace) || url(a.imagen);
-      return `<figure class="lamina" aria-label="${i+1} / ${conImg.length}">
-        <a href="${destino}" target="_blank" rel="noopener"><img src="${url(a.imagen)}" alt="${L(a,"titulo")}" loading="lazy"></a>
-        <figcaption><span class="etq">${t("t_"+(TIPOS_ACT.includes(a.tipo)?a.tipo:"evento"))}</span><strong>${L(a,"titulo")}</strong><span>${fechaF(a.fecha)}${a.hora?" · "+esc(a.hora):""} · ${L(a,"lugar")}</span></figcaption>
-      </figure>`;}).join("")}</div>
-    ${conImg.length>1?`<button class="r-btn r-ant" type="button" aria-label="${t("ant")}">‹</button><button class="r-btn r-sig" type="button" aria-label="${t("sig")}">›</button>
-    <div class="puntos">${conImg.map((_,i)=>`<button type="button" data-i="${i}" aria-label="${t("ir_a")} ${i+1}" aria-current="${i===0}"></button>`).join("")}</div>`:""}
-  </div>`;
+    <div class="pista" tabindex="0">${ruletaItems.map((a,i)=>`<button type="button" class="lamina" data-sel="${i}" aria-pressed="${i===0}">
+        <span class="lamina-img"><img src="${url(a.imagen)}" alt="" loading="lazy"></span>
+        <span class="lamina-txt"><strong>${L(a,"titulo")}</strong><small>${fechaF(a.fecha)}</small></span>
+      </button>`).join("")}</div>
+    ${ruletaItems.length>1?`<button class="r-btn r-ant" type="button" aria-label="${t("ant")}">‹</button><button class="r-btn r-sig" type="button" aria-label="${t("sig")}">›</button>`:""}
+  </div>
+  <p class="nota ruleta-ayuda">${t("ruleta_ayuda")}</p>
+  <div class="visor" id="visor" aria-live="polite">${visorHTML(ruletaItems[0])}</div>`;
 }
 let ruletaTimer = null;
 function iniciarRuleta() {
   clearInterval(ruletaTimer);
   const r = main.querySelector(".ruleta"); if (!r) return;
-  const pista = r.querySelector(".pista"), laminas = [...pista.children], puntos = [...r.querySelectorAll(".puntos button")];
-  if (laminas.length < 2) return;
-  const actual = () => Math.round(pista.scrollLeft / pista.clientWidth);
-  const ir = i => { i = (i + laminas.length) % laminas.length; pista.scrollTo({left: i * pista.clientWidth, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); };
-  pista.addEventListener("scroll", () => { const i = actual(); puntos.forEach((p,k)=>p.setAttribute("aria-current", String(k===i))); }, {passive:true});
-  r.querySelector(".r-ant").addEventListener("click", () => ir(actual()-1));
-  r.querySelector(".r-sig").addEventListener("click", () => ir(actual()+1));
-  puntos.forEach(p => p.addEventListener("click", () => ir(+p.dataset.i)));
+  const pista = r.querySelector(".pista"), laminas = [...pista.children];
+  const reducido = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const paso = () => laminas[1] ? laminas[1].offsetLeft - laminas[0].offsetLeft : pista.clientWidth;
+  const visibles = () => Math.max(1, Math.round(pista.clientWidth / paso()));
+  const actual = () => Math.round(pista.scrollLeft / paso());
+  const ir = i => { const max = Math.max(0, laminas.length - visibles()); if (i > max) i = 0; if (i < 0) i = max;
+    pista.scrollTo({left: i * paso(), behavior: reducido() ? "auto" : "smooth"}); };
+  r.querySelector(".r-ant")?.addEventListener("click", () => ir(actual()-1));
+  r.querySelector(".r-sig")?.addEventListener("click", () => ir(actual()+1));
   pista.addEventListener("keydown", e => { if (e.key==="ArrowRight") { e.preventDefault(); ir(actual()+1); } if (e.key==="ArrowLeft") { e.preventDefault(); ir(actual()-1); } });
+  const visor = main.querySelector("#visor");
+  pista.addEventListener("click", e => {
+    const b = e.target.closest("[data-sel]"); if (!b) return;
+    laminas.forEach(l => l.setAttribute("aria-pressed", String(l === b)));
+    visor.innerHTML = visorHTML(ruletaItems[+b.dataset.sel]);
+    visor.classList.remove("entra"); void visor.offsetWidth; visor.classList.add("entra");
+    visor.scrollIntoView({behavior: reducido() ? "auto" : "smooth", block: "nearest"});
+  });
   let pausa = false;
   r.addEventListener("mouseenter", () => pausa = true); r.addEventListener("mouseleave", () => pausa = false);
   r.addEventListener("focusin", () => pausa = true); r.addEventListener("focusout", () => pausa = false);
   r.addEventListener("touchstart", () => pausa = true, {passive:true});
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) ruletaTimer = setInterval(() => { if (!pausa && document.contains(r)) ir(actual()+1); }, 5000);
+  if (laminas.length > visibles() && !reducido())
+    ruletaTimer = setInterval(() => { if (!pausa && document.contains(r)) ir(actual()+1); }, 4000);
 }
+
 P["actividades"] = async () => {
   const {actividades} = await datos("actividades");
   const c = await datos("config").catch(()=>({}));
