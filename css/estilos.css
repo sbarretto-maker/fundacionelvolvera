@@ -339,3 +339,15 @@ html[data-paleta=amarillo] .nav a[aria-current=page]{background:#ffffff33}
 
 /* El sitio usa siempre el esquema claro: sin tarjetas azules en modo oscuro */
 :root,:root[data-theme=dark]{color-scheme:light}
+/* Colores fijos (sin variantes oscuras) */
+:root,:root[data-theme=dark],html[data-paleta]{--sup:#ffffff;--ink:#2a1d0c;--suave:#5e4b2e;--linea:#ecdcb8;--bg:#fffbf2;--titulo:#7f520c;--acento:#8a5a0e}
+.band.alt{background:#f7efdf}
+th,.dato code{background:#f7ecd6}
+.aviso{background:#fff4dc}
+.etq{background:#f7e6c2;color:#7f520c}
+.filtros button{background:#fff;color:#2a1d0c;border-color:#ecdcb8}
+input,select{background:#fff;color:#2a1d0c}
+.tar .fecha{white-space:normal}
+.media{background:linear-gradient(135deg,#9a6612,#d09a3a);color:#fff}
+.portada.foto{background-color:#9a6612}
+.saltar{color:#7f520c}
