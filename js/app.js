@@ -257,7 +257,7 @@ P["biblia"] = async () => {
   ${encabezado("biblia_t","biblia_p")}<section class="band"><div class="in">
     <div class="versiones">
       <div class="tar">${ico("libro")}<h3>Reina-Valera 1960</h3><p>${t("rv60_p")}</p><a class="btn azul" href="https://www.bible.com/bible/149/JHN.3.16.RVR1960" target="_blank" rel="noopener">${t("leer")}</a></div>
-      <div class="tar">${ico("libro")}<h3>King James Version</h3><p>${t("kjv_p")}</p><a class="btn azul" href="https://www.biblegateway.com/versions/King-James-Version-KJV-Bible/" target="_blank" rel="noopener">${t("leer")}</a></div>
+      <div class="tar">${ico("libro")}<h3>King James Version</h3><p>${t("kjv_p")}</p><a class="btn azul" href="https://www.bible.com/bible/1/JHN.3.16.KJV" target="_blank" rel="noopener">${t("leer")}</a></div>
     </div>
   </div></section>
   <section class="band alt"><div class="in">
