@@ -1,46 +1,52 @@
 {
- "actividades": [
-  {
-   "tipo": "estudio",
-   "fecha": "2026-12-03",
-   "hora": "19:00",
-   "lugar_es": "En línea",
-   "lugar_en": "Online",
-   "titulo_es": "Estudio bíblico: Evangelio de Juan",
-   "titulo_en": "Bible study: Gospel of John",
-   "descripcion_es": "Cada miércoles. Traiga su Biblia y sus preguntas.",
-   "descripcion_en": "Every Wednesday. Bring your Bible and your questions.",
-   "enlace": "",
-   "imagen": "/documentos/ejemplo-estudio.jpg",
-   "archivo": ""
-  },
-  {
-   "tipo": "debate",
-   "fecha": "2026-12-13",
-   "hora": "16:00",
-   "lugar_es": "Ciudad de Panamá",
-   "lugar_en": "Panama City",
-   "titulo_es": "Debate abierto: fe y razón",
-   "titulo_en": "Open debate: faith and reason",
-   "descripcion_es": "Conversación respetuosa con preguntas del público.",
-   "descripcion_en": "A respectful conversation with questions from the audience.",
-   "enlace": "",
-   "imagen": "/documentos/ejemplo-debate.jpg",
-   "archivo": ""
-  },
-  {
-   "tipo": "foro",
-   "fecha": "2026-12-20",
-   "hora": "18:00",
-   "lugar_es": "En línea",
-   "lugar_en": "Online",
-   "titulo_es": "Foro: la segunda venida de Cristo",
-   "titulo_en": "Forum: the second coming of Christ",
-   "descripcion_es": "Lo que enseña la Escritura sobre Su regreso.",
-   "descripcion_en": "What Scripture teaches about His return.",
-   "enlace": "",
-   "imagen": "/documentos/ejemplo-foro.jpg",
-   "archivo": ""
-  }
- ]
+  "actividades": [
+    {
+      "tipo": "estudio",
+      "fecha": "2026-12-03",
+      "hora": "19:00",
+      "titulo_es": "Estudio bíblico: Evangelio de Juan",
+      "titulo_en": "Bible study: Gospel of John",
+      "lugar_es": "En línea",
+      "lugar_en": "Online",
+      "descripcion_es": "Cada miércoles. Traiga su Biblia y sus preguntas.",
+      "descripcion_en": "Every Wednesday. Bring your Bible and your questions.",
+      "imagen": "/documentos/ejemplo-estudio.jpg"
+    },
+    {
+      "tipo": "debate",
+      "fecha": "2026-12-13",
+      "hora": "16:00",
+      "titulo_es": "Debate abierto: fe y razón",
+      "titulo_en": "Open debate: faith and reason",
+      "lugar_es": "Ciudad de Panamá",
+      "lugar_en": "Panama City",
+      "descripcion_es": "Conversación respetuosa con preguntas del público.",
+      "descripcion_en": "A respectful conversation with questions from the audience.",
+      "imagen": "/documentos/ejemplo-debate.jpg"
+    },
+    {
+      "tipo": "foro",
+      "fecha": "2026-12-20",
+      "hora": "18:00",
+      "titulo_es": "Foro: la segunda venida de Cristo",
+      "titulo_en": "Forum: the second coming of Christ",
+      "lugar_es": "En línea",
+      "lugar_en": "Online",
+      "descripcion_es": "Lo que enseña la Escritura sobre Su regreso.",
+      "descripcion_en": "What Scripture teaches about His return.",
+      "imagen": "/documentos/ejemplo-foro.jpg"
+    },
+    {
+      "tipo": "evento",
+      "fecha": "2026-11-01",
+      "hora": "12:00",
+      "titulo_es": "Actividad de prueba #5",
+      "titulo_en": "Active example #5",
+      "lugar_es": "Lugar de prueba",
+      "lugar_en": "example of test",
+      "descripcion_es": "prueba de una imagen subida",
+      "descripcion_en": "test",
+      "imagen": "/documentos/foto1.jpg"
+    }
+  ]
 }
