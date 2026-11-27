@@ -351,3 +351,11 @@ input,select{background:#fff;color:#2a1d0c}
 .media{background:linear-gradient(135deg,#9a6612,#d09a3a);color:#fff}
 .portada.foto{background-color:#9a6612}
 .saltar{color:#7f520c}
+/* Barra superior blanca con letras doradas */
+html[data-paleta=amarillo]{--cab-bg:rgb(255 255 255 / .96);--cab-solid:#ffffff;--cab-ink:#8a5a0e;--cab-acc:#b07a1e;--cab-hov:#f7ecd6;--cab-line:#ecdcb8}
+html[data-paleta=amarillo] .cab{box-shadow:0 2px 16px rgb(90 55 5 / .08)}
+html[data-paleta=amarillo] .cab :is(p,b,small,a){text-shadow:none}
+html[data-paleta=amarillo] .nav a{font-weight:600}
+html[data-paleta=amarillo] .nav a[aria-current=page]{background:#f7ecd6;color:#7f520c}
+html[data-paleta=amarillo] .nav a.donar-link{background:linear-gradient(135deg,#c48a2a,#9a6612);color:#fff}
+html[data-paleta=amarillo] .idioma,html[data-paleta=amarillo] .menu-btn{color:#8a5a0e;border-color:#c48a2a}
