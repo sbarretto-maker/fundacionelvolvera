@@ -316,3 +316,26 @@ html[data-paleta=marfil]{--foto-velo:linear-gradient(90deg,rgb(252 243 222 / .97
   .portada.foto{background:linear-gradient(0deg,var(--cab-solid) 38%,transparent 75%),url(../img/portada.jpg) 55% 0 / auto 62% no-repeat,var(--cab-solid)}
   .portada.foto .portada-in{min-height:0;padding-top:min(70vw,300px)}
 }
+
+/* ===== Paleta amarillo dorado con letras blancas ===== */
+html[data-paleta=amarillo]{
+  --cab-bg:rgb(166 110 22 / .94);--cab-solid:#a66e16;--cab-ink:#fff;--cab-acc:#fff3d6;--cab-hov:#ffffff26;--cab-line:#ffffff33;
+  --hero-bg:radial-gradient(70% 140% at 90% 0%,#e0a63c 0%,transparent 60%),linear-gradient(160deg,#c48a2a 0%,#9a6612 100%);
+  --hero-ink:#fff;--hero-tit:#fff;--hero-acc:#fff3d6;
+  --osc-bg:linear-gradient(135deg,#c48a2a,#9a6612);--osc-ink:#fff;--osc-tit:#fff;--osc-sub:#fff7e6;--osc-acc:#fff3d6;
+  --pie-bg:linear-gradient(160deg,#a66e16,#7f520c);--pie-ink:#fff;--pie-tit:#fff;--pie-acc:#fff3d6;
+  --prim:#a66e16;--prim2:#d09a3a;--prim-acc:#fff;
+  --boro:#fff;--boro-ink:#7f520c;
+  --titulo:light-dark(#7f520c,#f6dba2);--acento:light-dark(#8a5a0e,#f0c46e);
+  --bg:light-dark(#fffbf2,#1a1206);
+  --foto-velo:linear-gradient(90deg,rgb(154 102 18 / .93) 0%,rgb(154 102 18 / .78) 32%,rgb(154 102 18 / .25) 62%,rgb(154 102 18 / 0) 80%),linear-gradient(0deg,rgb(127 82 12 / .5),transparent 35%);
+}
+html[data-paleta=amarillo] :is(.portada,.encab,.band.oscura,.pie,.cab) :is(h1,h2,h3,p,blockquote,em,cite,.intro){text-shadow:0 1px 2px rgb(90 55 5 / .35)}
+html[data-paleta=amarillo] .btn.linea{border-color:#fff;color:#fff}
+html[data-paleta=amarillo] .btn.oro{box-shadow:0 10px 30px rgb(90 55 5 / .3)}
+html[data-paleta=amarillo] .pie-logo{box-shadow:0 0 0 3px #ffffff55}
+html[data-paleta=amarillo] .nav a[aria-current=page]{background:#ffffff33}
+@media(max-width:760px){html[data-paleta=amarillo] .portada.foto{background:linear-gradient(0deg,#9a6612 38%,transparent 75%),url(../img/portada.jpg) 55% 0 / auto 62% no-repeat,#9a6612}}
+
+/* El sitio usa siempre el esquema claro: sin tarjetas azules en modo oscuro */
+:root,:root[data-theme=dark]{color-scheme:light}
